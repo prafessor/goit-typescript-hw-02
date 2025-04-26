@@ -1,0 +1,14 @@
+.loader {
+  margin: 100px auto;
+
+  display: block;
+}
+
+.container {
+  max-width: 1240px;
+  margin: auto;
+}
+
+.modal_img {
+  height: 100%;
+}
