@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import searchImage from '../../unsplash-api';
+import { Image } from '../../common-types';
 import MoonLoader from 'react-spinners/MoonLoader';
 import SearchBar from '../SearchBar/SearchBar';
 import ImageGallery from '../ImageGallery/ImageGallery';
@@ -9,38 +10,38 @@ import ImageModal from '../ImageModal/ImageModal';
 import css from './App.module.css';
 
 export default function App() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [image, setImage] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalImage, setModalImage] = useState(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [image, setImage] = useState<Image[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
 
   // modal action functions
-  function openModal(imgUrl) {
+  function openModal(imgUrl: string): void {
     setModalImage(imgUrl);
     setIsOpen(true);
   }
 
-  function closeModal() {
+  function closeModal(): void {
     setIsOpen(false);
     setModalImage(null);
   }
 
   // search image functions
-  const handleImgSearch = queryImg => {
+  const handleImgSearch = (queryImg: string): void => {
     setSearchQuery(queryImg);
     setPage(1);
     setImage([]);
   };
 
-  const hadleBtnMoreClick = () => {
+  const hadleBtnMoreClick = (): void => {
     setPage(page + 1);
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (searchQuery === '') {
       return;
     }
@@ -83,7 +84,7 @@ export default function App() {
       <ImageModal
         isOpen={modalIsOpen}
         onClose={closeModal}
-        image={modalImage}
+        image={modalImage ? modalImage : ''}
       />
     </>
   );

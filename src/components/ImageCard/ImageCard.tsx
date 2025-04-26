@@ -1,7 +1,13 @@
+import { Image } from '../../common-types';
 import { FaHeart } from 'react-icons/fa6';
 import css from './ImageCard.module.css';
+import { FC } from 'react';
 
-export default function ImageCard({ picture }) {
+interface ImageCardProps {
+  picture: Image;
+}
+
+const ImageCard: FC<ImageCardProps> = ({ picture }) => {
   return (
     <>
       <div className={css.img_wrapper}>
@@ -21,4 +27,6 @@ export default function ImageCard({ picture }) {
       </div>
     </>
   );
-}
+};
+
+export default ImageCard;

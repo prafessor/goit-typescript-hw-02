@@ -1,13 +1,21 @@
+import { FC, FormEvent } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { BsSearch } from 'react-icons/bs';
 import css from './SearchBar.module.css';
 
-export default function SearchBar({ onSearch }) {
+interface SearchBarProps {
+  onSearch: (queryImg: string) => void;
+}
 
-  const handleSearchSubmit = evt => {
+const SearchBar: FC<SearchBarProps> = ({ onSearch }) => {
+  const handleSearchSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    const query = evt.currentTarget.elements.query.value.trim();
+    const searchInput = evt.currentTarget.elements.namedItem(
+      'query'
+    ) as HTMLInputElement;
+
+    const query = searchInput.value.trim();
 
     if (query.length === 0) {
       toast.error('Please enter something in the field', { icon: '❕️' });
@@ -28,7 +36,7 @@ export default function SearchBar({ onSearch }) {
             name="query"
             placeholder="Search images and photos"
           />
-          
+
           <button className={css.btn} type="submit">
             <BsSearch className={css.icon} size="16" />
           </button>
@@ -38,4 +46,6 @@ export default function SearchBar({ onSearch }) {
       <Toaster position="top-right" />
     </header>
   );
-}
+};
+
+export default SearchBar;
